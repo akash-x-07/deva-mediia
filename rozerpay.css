@@ -1,81 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #10121a, #0a0c12 80%);
+  background: linear-gradient(135deg, #0d1117, #141a2e);
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
-  overflow-x: hidden;
 }
 
-/* Center section */
+
 .cta-section {
-  text-align: center;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
 }
 
-/* Card */
+
 .card {
-  background: rgba(20, 22, 28, 0.85);
-  padding: 32px 26px;
-  border-radius: 20px;
-  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.7);
+  background: rgba(15, 17, 25, 0.95);
+  padding: 36px 28px;
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(0, 195, 255, 0.25);
   width: 100%;
-  max-width: 370px;
-  backdrop-filter: blur(14px);
+  max-width: 380px;
+  backdrop-filter: blur(16px);
   transition: all 0.35s ease;
-  margin: auto;
   position: relative;
 }
 
 .card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 16px 40px rgba(0, 195, 255, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 195, 255, 0.35);
 }
 
-/* Image */
+
 .ebook-image {
-  width: 90%;
-  max-width: 210px;
-  height: 240px;
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0, 195, 255, 0.3);
-  margin: 0 auto 20px;
+  width: 100%;
+  max-width: 220px;
+  height: 260px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 195, 255, 0.35);
+  margin: 0 auto 22px;
   display: block;
   animation: float 4s ease-in-out infinite;
 }
 
+
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
 }
 
-/* Headings */
 .cta-heading {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #00d0ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-/* Price */
 .price-container {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .price {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #00c3ff, #00ffcc);
+  background: linear-gradient(135deg, #00d0ff, #00ffa5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .price .currency {
@@ -83,88 +87,84 @@ body {
   color: #aaa;
 }
 
-/* Email + Button Row */
+
 .email-container {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 18px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 #customerEmail {
-  padding: 12px 15px;
-  border-radius: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
   border: none;
   font-size: 1rem;
   outline: none;
   flex: 1 1 180px;
   min-width: 180px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.45);
   transition: all 0.3s ease;
   background: rgba(255,255,255,0.05);
   color: #fff;
 }
 
 #customerEmail::placeholder {
-  color: #aaa;
+  color: #bbb;
 }
 
 #customerEmail:focus {
-  box-shadow: 0 0 12px #00c3ff;
+  box-shadow: 0 0 14px #00d0ff;
+  background: rgba(255,255,255,0.08);
 }
 
 /* Buy Button */
 .cta-button {
-  padding: 14px 24px;
+  padding: 16px 28px;
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #00c3ff, #0073ff);
-  color: #fff;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00d0ff, #00ffa5);
+  color: #0a0c12;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 20px rgba(0, 195, 255, 0.3);
-  min-width: 120px;
+  min-width: 140px;
   flex-shrink: 0;
-  animation: glow 2.2s infinite alternate;
+  box-shadow: 0 6px 25px rgba(0, 195, 255, 0.35);
 }
 
 .cta-button:hover {
-  transform: scale(1.06);
-  background: linear-gradient(135deg, #0073ff, #00c3ff);
-  box-shadow: 0 10px 30px rgba(0, 195, 255, 0.6);
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #00ffa5, #00d0ff);
+  box-shadow: 0 12px 30px rgba(0, 195, 255, 0.5);
 }
 
-@keyframes glow {
-  from { box-shadow: 0 0 10px rgba(0,195,255,0.5); }
-  to { box-shadow: 0 0 25px rgba(0,195,255,0.9); }
-}
 
-/* Divider */
 .divider {
-  margin: 24px 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #00c3ff, transparent);
+  margin: 26px 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00d0ff, transparent);
   width: 100%;
+  border-radius: 1px;
 }
 
-/* Fade animation */
+
 .fade-in {
-  animation: fade 0.8s ease forwards;
+  animation: fade 0.9s ease forwards;
   opacity: 0;
 }
 @keyframes fade {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+
 @media (max-width: 480px) {
-  .cta-heading { font-size: 1.6rem; }
-  .price { font-size: 1.5rem; }
+  .cta-heading { font-size: 1.8rem; }
+  .price { font-size: 1.6rem; }
   #customerEmail { flex: 1 1 100%; }
-  .cta-button { flex: 1 1 100%; font-size: 0.95rem; }
-  .card { padding: 26px 20px; }
-  .email-container { flex-direction: column; gap: 12px; }
+  .cta-button { flex: 1 1 100%; font-size: 1rem; }
+  .card { padding: 28px 22px; }
+  .email-container { flex-direction: column; gap: 14px; }
 }
