@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy eBook | DEVA MEDIA</title>
+  <link rel="stylesheet" href="rozerpay.css" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <section class="cta-section">
+    <div class="card fade-in">
+      <img src="teen.jpg" alt="Teen to Millionaire eBook" class="ebook-image" />
+
+      <h2 class="cta-heading">Teen to Millionaire</h2>
+
+      <!-- Price -->
+      <div class="price-container">
+        <p class="price">₹499 <span class="currency">INR</span></p>
+      </div>
+
+      <!-- Email Input + Buy Button -->
+      <div class="email-container">
+        <input type="email" id="customerEmail" placeholder="Enter your email to receive the eBook" required />
+        <button class="cta-button" id="buyButton">Buy Now</button>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+    </div>
+  </section>
+
+  <!-- Razorpay Script -->
+  <script>
+    const buyButton = document.getElementById("buyButton");
+
+    buyButton.addEventListener("click", payNow);
+
+    async function payNow() {
+      const emailInput = document.getElementById("customerEmail");
+      const customerEmail = emailInput.value || "customer@example.com"; // fallback
+      const amount = 499; // ₹499
+
+      try {
+        const orderRes = await fetch("http://localhost:3000/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: amount * 100 })
+        });
+
+        if (!orderRes.ok) throw new Error("Failed to create order.");
+        const order = await orderRes.json();
+
+        const options = {
+          key: "rzp_live_RQued3FP5TVGu5", // Replace with your Test/Live key
+          amount: order.amount,
+          currency: "INR",
+          name: "DEVA MEDIA",
+          description: "Teen to Millionaire eBook",
+          image: "logo.png",
+          order_id: order.id,
+          handler: async function(response) {
+            try {
+              const verifyRes = await fetch("http://localhost:3000/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...response, email: customerEmail })
+              });
+
+              if (!verifyRes.ok) throw new Error("Payment verification failed!");
+
+              // ✅ Auto download eBook
+              const blob = await verifyRes.blob();
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "TEEN_TO_MILLIONARIE.pdf";
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+              window.URL.revokeObjectURL(url);
+
+              alert("✅ Payment Successful! Your eBook is downloading.");
+            } catch (err) {
+              console.error(err);
+              alert("❌ Payment verification failed or download error!");
+            }
+          },
+          prefill: {
+            name: "Customer",
+            email: customerEmail,
+            contact: "9999999999"
+          },
+          theme: { color: "#00c3ff" }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (error) {
+        console.error("Payment error:", error);
+        alert("Something went wrong. Please try again later.");
+      }
+    }
+  </script>
+</body>
+</html>

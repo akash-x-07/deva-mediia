@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #10121a, #0a0c12 80%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* Center section */
+.cta-section {
+  text-align: center;
+  width: 100%;
+}
+
+/* Card */
+.card {
+  background: rgba(20, 22, 28, 0.85);
+  padding: 32px 26px;
+  border-radius: 20px;
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 370px;
+  backdrop-filter: blur(14px);
+  transition: all 0.35s ease;
+  margin: auto;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 195, 255, 0.25);
+}
+
+/* Image */
+.ebook-image {
+  width: 90%;
+  max-width: 210px;
+  height: 240px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 195, 255, 0.3);
+  margin: 0 auto 20px;
+  display: block;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Headings */
+.cta-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+/* Price */
+.price-container {
+  margin-bottom: 22px;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00c3ff, #00ffcc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.price .currency {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* Email + Button Row */
+.email-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#customerEmail {
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  flex: 1 1 180px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+
+#customerEmail::placeholder {
+  color: #aaa;
+}
+
+#customerEmail:focus {
+  box-shadow: 0 0 12px #00c3ff;
+}
+
+/* Buy Button */
+.cta-button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00c3ff, #0073ff);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 195, 255, 0.3);
+  min-width: 120px;
+  flex-shrink: 0;
+  animation: glow 2.2s infinite alternate;
+}
+
+.cta-button:hover {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, #0073ff, #00c3ff);
+  box-shadow: 0 10px 30px rgba(0, 195, 255, 0.6);
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px rgba(0,195,255,0.5); }
+  to { box-shadow: 0 0 25px rgba(0,195,255,0.9); }
+}
+
+/* Divider */
+.divider {
+  margin: 24px 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00c3ff, transparent);
+  width: 100%;
+}
+
+/* Fade animation */
+.fade-in {
+  animation: fade 0.8s ease forwards;
+  opacity: 0;
+}
+@keyframes fade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .cta-heading { font-size: 1.6rem; }
+  .price { font-size: 1.5rem; }
+  #customerEmail { flex: 1 1 100%; }
+  .cta-button { flex: 1 1 100%; font-size: 0.95rem; }
+  .card { padding: 26px 20px; }
+  .email-container { flex-direction: column; gap: 12px; }
+}

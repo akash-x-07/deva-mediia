@@ -1,0 +1,90 @@
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #111822; /* Dark background like footer */
+  color: #ddd;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  border-bottom: 1px solid #222;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #00c3ff;
+  margin: 0;
+}
+
+/* Main content */
+main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Sections */
+main section {
+  margin-bottom: 30px;
+}
+
+/* Section headings */
+main h2 {
+  color: #00c3ff;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+/* Paragraphs */
+main p {
+  color: #bbb;
+  font-size: 0.95rem;
+}
+
+/* Lists */
+main ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #bbb;
+}
+
+main ul li {
+  margin-bottom: 8px;
+}
+
+/* Links */
+a {
+  color: #00c3ff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+a:hover {
+  color: #00ffff;
+  text-decoration: underline;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #222;
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+  main {
+    padding: 0 15px;
+  }
+}

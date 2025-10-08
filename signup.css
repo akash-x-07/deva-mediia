@@ -1,0 +1,141 @@
+/* Reset & basic styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #121212;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    width: 900px;
+    max-width: 95%;
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+
+.left-panel {
+    flex: 1;
+    background: #3396D3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 30px;
+    text-align: center;
+}
+
+.left-panel h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.left-panel p {
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.right-panel {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #1e1e1e;
+}
+
+.right-panel h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #0d6efd;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 15px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #121212;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px #0d6efd;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    background: #0d6efd;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+.signin-link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.9rem;
+}
+
+.signin-link a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.signin-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        flex: none;
+        width: 100%;
+        padding: 30px;
+    }
+
+    .left-panel h1 {
+        font-size: 2rem;
+    }
+
+    .right-panel h2 {
+        font-size: 1.8rem;
+    }
+}
