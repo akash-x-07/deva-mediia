@@ -26,17 +26,12 @@
     
   }
   
-  .navbar__logo img{
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    border-radius: 10px;
-  }
 
   .navbar__logo img {
     width: 40px;
     height: 40px;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+    background: transparent;
   }
   .navbar__logo h1 {
     font-size: 1.6rem;
@@ -886,3 +881,4 @@
     transform: none;
 
   }
+
