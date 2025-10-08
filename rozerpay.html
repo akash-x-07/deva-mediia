@@ -42,7 +42,8 @@
       const amount = 499; // ₹499
 
       try {
-        const orderRes = await fetch("http://localhost:3000/create-order", {
+        // 🔹 Render backend URL
+        const orderRes = await fetch("https://ebook-backend-441q.onrender.com/create-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ amount: amount * 100 })
@@ -52,7 +53,7 @@
         const order = await orderRes.json();
 
         const options = {
-          key: "rzp_live_RQued3FP5TVGu5", // Replace with your Test/Live key
+          key: "rzp_live_RQued3FP5TVGu5", // Replace with your Live/Test key
           amount: order.amount,
           currency: "INR",
           name: "DEVA MEDIA",
@@ -61,7 +62,7 @@
           order_id: order.id,
           handler: async function(response) {
             try {
-              const verifyRes = await fetch("http://localhost:3000/verify-payment", {
+              const verifyRes = await fetch("https://ebook-backend-441q.onrender.com/verify-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...response, email: customerEmail })
@@ -74,7 +75,7 @@
               const url = window.URL.createObjectURL(blob);
               const a = document.createElement("a");
               a.href = url;
-              a.download = "TEEN_TO_MILLIONARIE.pdf";
+              a.download = "TEEN_TO_MILLIONAIRE.pdf";
               document.body.appendChild(a);
               a.click();
               a.remove();
