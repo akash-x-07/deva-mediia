@@ -1,0 +1,189 @@
+/* Simple Flipkart-like layout, responsive */
+:root {
+  --accent: #ff6a00;
+  --muted: #666;
+  --card: #fff;
+  --bg: #f5f7fb;
+  --radius: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #111;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 8px 28px rgba(12, 18, 22, 0.06);
+}
+
+.product {
+  display: flex;
+  gap: 18px;
+}
+
+/* BOOK COVER IMAGE */
+.cover {
+  width: 160px;
+  height: 220px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Fancy book cover (optional) */
+.book-cover {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: rotate(-1deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-cover:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h1 { margin:0 0 8px 0; font-size: 20px; }
+.muted { color: var(--muted); font-size: 14px; }
+.price { font-size: 22px; font-weight: 700; margin-top:8px; color:#111; }
+
+.qty {
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.qty input {
+  width:64px;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ddd;
+}
+
+.checkout-side {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.section-title {
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+label {
+  display:block;
+  font-size:14px;
+  margin-top:6px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+  width:100%;
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #e6e6e6;
+  box-sizing:border-box;
+  font-size:14px;
+  margin-top:6px;
+}
+
+.payment-methods {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:8px;
+}
+
+.pm-btn {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #e6e6e6;
+  cursor:pointer;
+  background:white;
+}
+
+.pm-btn input {
+  margin-right:6px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color:white;
+  border:none;
+  padding:12px 16px;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  width:100%;
+}
+
+.btn-muted {
+  background:#f1f1f1;
+  color:#333;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.small {
+  font-size:13px;
+  color:var(--muted);
+}
+
+.legal {
+  font-size:12px;
+  color:#888;
+  margin-top:8px;
+}
+
+/* ------------------------------------------ */
+/*               MOBILE FIX ⬇️                */
+/* ------------------------------------------ */
+
+@media (max-width: 880px) {
+
+  /* Container ek column ho jayegi */
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  /* Product vertical ho jayega */
+  .product {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Image fully responsive */
+  .cover {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    display: block;
+    margin: 0 auto 12px auto;
+    object-fit: contain;
+  }
+}
