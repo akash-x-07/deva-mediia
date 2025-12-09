@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Continue – Order Summary</title>
+  <link rel="stylesheet" href="continue.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="product">
+    <img src="book.jpg" alt="Book">
+
+    <div class="info">
+      <h3>Teen To Millionaire</h3>
+      <div class="price">₹499</div>
+
+      <div class="qty">
+        <label>Quantity:</label>
+        <input id="qty" type="number" min="1" value="1">
+      </div>
+
+      <p><strong>Total:</strong> ₹<span id="total">499</span></p>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="goNext()">Continue</button>
+
+</div>
+
+<script>
+  const qty = document.getElementById("qty");
+  const total = document.getElementById("total");
+
+  qty.addEventListener("input", () => {
+    let q = Math.max(1, parseInt(qty.value));
+    total.innerText = q * 499;
+  });
+
+  function goNext() {
+    const q = Math.max(1, parseInt(qty.value));
+    const t = q * 499;
+
+    localStorage.setItem("order_qty", q);
+    localStorage.setItem("order_total", t);
+
+    window.location.href = "chekout.html";
+  }
+</script>
+
+</body>
+</html>

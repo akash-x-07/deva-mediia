@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Details</title>
+  <link rel="stylesheet" href="chekout.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Shipping Details</h2>
+
+  <div class="summary-box">
+    <h3>Order Summary</h3>
+    <p>Book: <strong>Teen To Millionaire</strong></p>
+    <p>Quantity: <strong id="qty">1</strong></p>
+    <p>Total Amount: <strong>₹<span id="total">499</span></strong></p>
+  </div>
+
+  <div class="form">
+
+    <label>Name</label>
+    <input id="name" type="text" placeholder="Full name">
+
+    <label>Phone</label>
+    <input id="phone" type="tel" placeholder="9876543210">
+
+    <label>Address</label>
+    <textarea id="address" rows="3" placeholder="House No, Street, Area, Landmark"></textarea>
+
+    <div class="row">
+      <input id="city" type="text" placeholder="City">
+      <input id="state" type="text" placeholder="State">
+      <input id="pincode" type="text" placeholder="Pincode">
+    </div>
+
+    <button class="btn-primary" onclick="startPayment()">Continue to Payment</button>
+
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+  document.getElementById("qty").innerText = localStorage.getItem("order_qty");
+  document.getElementById("total").innerText = localStorage.getItem("order_total");
+
+  function startPayment() {
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const pincode = document.getElementById("pincode").value;
+
+    if (!name || !phone || !address || !pincode) {
+      alert("Please fill all required fields!");
+      return;
+    }
+
+    localStorage.setItem("user_details", JSON.stringify({
+      name, phone, address, city, state, pincode
+    }));
+
+    let amount = Number(localStorage.getItem("order_total")) * 100;
+
+    var options = {
+      "key": "rzp_live_RQued3FP5TVGu5",
+      "amount": amount,
+      "currency": "INR",
+      "name": "Teen To Millionaire",
+      "description": "Book Purchase",
+      "handler": function (response){
+          alert("Payment Successful!");
+          window.location.href = "success.html";
+      },
+      "prefill": {
+          "name": name,
+          "contact": phone
+      },
+      "theme": {
+          "color": "#2563eb"
+      }
+    };
+
+    var pay = new Razorpay(options);
+    pay.open();
+  }
+</script>
+
+</body>
+</html>
