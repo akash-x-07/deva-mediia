@@ -20,7 +20,7 @@ function goToStep(stepNum) {
 // Update summary
 qtyEl.addEventListener("input", () => {
   const qty = Math.max(1, parseInt(qtyEl.value));
-  summaryPrice.innerText = "₹" + (qty * 499);
+  summaryPrice.innerText = "₹" + (qty * 899);
 });
 
 // Next / Back buttons
@@ -71,3 +71,4 @@ placeOrder.addEventListener("click", () => {
   var pay = new Razorpay(options);
   pay.open();
 });
+
