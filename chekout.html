@@ -1,147 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Deva Media</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Details</title>
   <link rel="stylesheet" href="chekout.css">
 </head>
 
 <body>
-  <div class="container">
 
-    <!-- LEFT -->
-    <div class="card">
-      <div class="product">
-        <img class="cover" src="book.jpg" alt="Book cover">
+<div class="container">
 
-        <div style="flex:1;">
-          <h1>Teen To Millionaire</h1>
-          <div class="muted">Powered By Devamedianetwork</div>
-          <div class="price">₹499</div>
-          <div class="muted">Inclusive of all taxes</div>
+  <h2>Shipping Details</h2>
 
-          <div class="qty">
-            <label>Quantity</label>
-            <input id="qty" type="number" min="1" value="1">
-            <div class="small" style="margin-left:auto;">Shipping across India</div>
-          </div>
-
-          <div style="margin-top:14px;">
-            <div class="section-title">Order Summary</div>
-            <div class="small">
-              Price × Quantity = <strong id="summary-price">₹499</strong>
-            </div>
-          </div>
-
-          <div style="margin-top:16px;">
-            <div class="section-title">Shipping Address</div>
-
-            <label>Name</label>
-            <input id="name" type="text" placeholder="Full name">
-
-            <label>Phone</label>
-            <input id="phone" type="tel" placeholder="+91-9876543210">
-
-            <label>Address</label>
-            <textarea id="address" rows="3" placeholder="House, Street, Landmark"></textarea>
-
-            <div style="display:flex; gap:8px;">
-              <input id="city" type="text" placeholder="City">
-              <input id="state" type="text" placeholder="State">
-              <input id="pincode" type="text" placeholder="Pincode">
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="card checkout-side">
-      <div>
-        <div class="section-title">Payment Method</div>
-
-        <label class="pm-btn">
-          <input type="radio" name="pm" value="razorpay" checked>
-          Pay with Razorpay (UPI / Card / Wallet)
-        </label>
-      </div>
-
-      <div>
-        <button id="place-order" class="btn-primary">Pay Now</button>
-      </div>
-
-      <div>
-        <div class="section-title">Support</div>
-        <div class="small">Questions? contact business@devamedianetwork.com</div>
-      </div>
-    </div>
-
+  <div class="summary-box">
+    <h3>Order Summary</h3>
+    <p>Book: <strong>Teen To Millionaire</strong></p>
+    <p>Quantity: <strong id="qty">1</strong></p>
+    <p>Total Amount: <strong>₹<span id="total">499</span></strong></p>
   </div>
 
-  <!-- Razorpay -->
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <div class="form">
 
-  <script>
-    const qtyEl = document.getElementById("qty");
+    <label>Name</label>
+    <input id="name" type="text" placeholder="Full name">
 
-    function getOrder() {
-      const qty = Math.max(1, parseInt(qtyEl.value));
-      const price = 499;
-      return {
-        qty,
-        total: qty * price,
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value,
-        city: document.getElementById("city").value,
-        state: document.getElementById("state").value,
-        pincode: document.getElementById("pincode").value
-      };
+    <label>Phone</label>
+    <input id="phone" type="tel" placeholder="9876543210">
+
+    <label>Address</label>
+    <textarea id="address" rows="3" placeholder="House No, Street, Area, Landmark"></textarea>
+
+    <div class="row">
+      <input id="city" type="text" placeholder="City">
+      <input id="state" type="text" placeholder="State">
+      <input id="pincode" type="text" placeholder="Pincode">
+    </div>
+
+    <button class="btn-primary" onclick="startPayment()">Continue to Payment</button>
+
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+  document.getElementById("qty").innerText = localStorage.getItem("order_qty");
+  document.getElementById("total").innerText = localStorage.getItem("order_total");
+
+  function startPayment() {
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const pincode = document.getElementById("pincode").value;
+
+    if (!name || !phone || !address || !pincode) {
+      alert("Please fill all required fields!");
+      return;
     }
 
-    qtyEl.addEventListener("input", () => {
-      const o = getOrder();
-      document.getElementById("summary-price").innerText = "₹" + o.total;
-    });
+    localStorage.setItem("user_details", JSON.stringify({
+      name, phone, address, city, state, pincode
+    }));
 
-    // PAYMENT BUTTON — LIVE MODE
-    document.getElementById("place-order").addEventListener("click", () => {
+    let amount = Number(localStorage.getItem("order_total")) * 100;
 
-      const o = getOrder();
-
-      if (!o.name || !o.phone || !o.address || !o.pincode) {
-        alert("Please fill shipping details.");
-        return;
+    var options = {
+      "key": "rzp_live_RQued3FP5TVGu5",
+      "amount": amount,
+      "currency": "INR",
+      "name": "Teen To Millionaire",
+      "description": "Book Purchase",
+      "handler": function (response){
+          alert("Payment Successful!");
+          window.location.href = "success.html";
+      },
+      "prefill": {
+          "name": name,
+          "contact": phone
+      },
+      "theme": {
+          "color": "#2563eb"
       }
+    };
 
-      var options = {
-        "key": "rzp_live_RQued3FP5TVGu5",  // 👉 Your LIVE key (already added)
-        "amount": o.total * 100,
-        "currency": "INR",
-        "name": "Deva Media",
-        "description": "Book Purchase",
-
-        "handler": function (response) {
-          alert("Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
-          window.location = "/thankyou.html";
-        },
-
-        "prefill": {
-          "name": o.name,
-          "contact": o.phone
-        },
-
-        "theme": { "color": "#ff6a00" },
-        "method": { "upi": true }
-      };
-
-      var pay = new Razorpay(options);
-      pay.open();
-    });
-  </script>
+    var pay = new Razorpay(options);
+    pay.open();
+  }
+</script>
 
 </body>
 </html>
-
