@@ -39,7 +39,7 @@ nextToPayment.addEventListener("click", () => {
 
   const qty = Math.max(1, parseInt(qtyEl.value));
   confirmQty.innerText = qty;
-  confirmTotal.innerText = qty * 499;
+  confirmTotal.innerText = qty * 899;
 
   goToStep(3);
 });
@@ -71,4 +71,5 @@ placeOrder.addEventListener("click", () => {
   var pay = new Razorpay(options);
   pay.open();
 });
+
 
