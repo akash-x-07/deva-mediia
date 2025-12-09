@@ -50,7 +50,7 @@ placeOrder.addEventListener("click", () => {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
   const qty = Math.max(1, parseInt(qtyEl.value));
-  const total = qty * 499;
+  const total = qty * 899;
 
   const options = {
     "key": "rzp_live_RQued3FP5TVGu5",
@@ -71,5 +71,6 @@ placeOrder.addEventListener("click", () => {
   var pay = new Razorpay(options);
   pay.open();
 });
+
 
 
