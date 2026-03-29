@@ -51,9 +51,11 @@
 
 <script>
 
-document.getElementById("qty").innerText = localStorage.getItem("order_qty");
-document.getElementById("total").innerText = localStorage.getItem("order_total");
+/* LOAD DATA */
+document.getElementById("qty").innerText = localStorage.getItem("order_qty") || 1;
+document.getElementById("total").innerText = localStorage.getItem("order_total") || 899;
 
+/* FORM DATA */
 function getFormData() {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
@@ -70,12 +72,12 @@ function getFormData() {
   return { name, phone, address, city, state, pincode };
 }
 
-// 🔥 Razorpay
+/* 💳 RAZORPAY */
 function startPayment() {
   const user = getFormData();
   if (!user) return;
 
-  let amount = Number(localStorage.getItem("order_total")) * 100;
+  let amount = Number(localStorage.getItem("order_total") || 899) * 100;
 
   var options = {
     key: "rzp_live_RQued3FP5TVGu5",
@@ -97,7 +99,7 @@ function startPayment() {
   pay.open();
 }
 
-// 🚚 COD + WhatsApp
+/* 🚚 COD → EMAIL (NO KEY) */
 function placeCOD() {
 
   const user = getFormData();
@@ -108,27 +110,35 @@ function placeCOD() {
   btn.innerHTML = "⏳ Placing Order...";
 
   const orderId = "ORD" + Date.now();
-  const amount = localStorage.getItem("order_total");
-  const qty = localStorage.getItem("order_qty");
+  const amount = localStorage.getItem("order_total") || 899;
+  const qty = localStorage.getItem("order_qty") || 1;
 
-  let message = `🛒 *New COD Order* %0A
-📦 Product: Teen To Millionaire %0A
-🔢 Quantity: ${qty} %0A
-💰 Amount: ₹${amount} %0A
-%0A
-👤 Name: ${user.name} %0A
-📞 Phone: ${user.phone} %0A
-📍 Address: ${user.address}, ${user.city}, ${user.state} - ${user.pincode} %0A
-%0A
-🆔 Order ID: ${orderId}`;
+  const subject = `New COD Order - ${orderId}`;
 
-  let whatsappNumber = "918726326511"; // 👈 change this
+  const body = `
+New COD Order
+
+Product: Teen To Millionaire
+Quantity: ${qty}
+Amount: ₹${amount}
+
+Name: ${user.name}
+Phone: ${user.phone}
+Address: ${user.address}, ${user.city}, ${user.state} - ${user.pincode}
+
+Order ID: ${orderId}
+`;
+
+
+  const email = "devamedianetwork@gmail.com";
+
+  // Open email app
+  window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
   setTimeout(() => {
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
-    alert("🎉 Order Confirmed!");
+    alert("📩 Please send the email to confirm your order");
     window.location.href = "success.html";
-  }, 1200);
+  }, 1000);
 }
 
 </script>
