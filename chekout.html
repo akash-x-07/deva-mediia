@@ -72,7 +72,7 @@ function getFormData() {
   return { name, phone, address, city, state, pincode };
 }
 
-/* 💳 RAZORPAY */
+/* 💳 ONLINE PAYMENT */
 function startPayment() {
   const user = getFormData();
   if (!user) return;
@@ -86,8 +86,8 @@ function startPayment() {
     name: "Teen To Millionaire",
     description: "Book Purchase",
     handler: function () {
-      alert("Payment Successful!");
-      window.location.href = "success.html";
+      alert("✅ Payment Successful!");
+      window.location.href = "success.html?type=paid";
     },
     prefill: {
       name: user.name,
@@ -99,7 +99,7 @@ function startPayment() {
   pay.open();
 }
 
-/* 🚚 COD → EMAIL (NO KEY) */
+/* 🚚 COD → EMAIL */
 function placeCOD() {
 
   const user = getFormData();
@@ -129,15 +129,13 @@ Address: ${user.address}, ${user.city}, ${user.state} - ${user.pincode}
 Order ID: ${orderId}
 `;
 
-
   const email = "aditya@devamedianetwork.org";
 
-  // Open email app
   window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
   setTimeout(() => {
-    alert("📩 Please send the email to confirm your order");
-    window.location.href = "success.html";
+    alert("📦 Order Placed Successfully! Pay on delivery.");
+    window.location.href = "success.html?type=cod";
   }, 1000);
 }
 
