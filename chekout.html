@@ -37,7 +37,11 @@
       <input id="pincode" type="text" placeholder="Pincode">
     </div>
 
-    <button class="btn-primary" onclick="startPayment()">Continue to Payment</button>
+    <!-- ONLINE PAYMENT -->
+    <button class="btn-primary" onclick="startPayment()">Pay Online</button>
+
+    <!-- COD BUTTON -->
+    <button class="btn-cod" onclick="placeCOD()">Cash on Delivery (COD)</button>
 
   </div>
 </div>
@@ -49,8 +53,7 @@
   document.getElementById("qty").innerText = localStorage.getItem("order_qty");
   document.getElementById("total").innerText = localStorage.getItem("order_total");
 
-  function startPayment() {
-
+  function getFormData() {
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
     const address = document.getElementById("address").value;
@@ -60,12 +63,19 @@
 
     if (!name || !phone || !address || !pincode) {
       alert("Please fill all required fields!");
-      return;
+      return null;
     }
 
-    localStorage.setItem("user_details", JSON.stringify({
-      name, phone, address, city, state, pincode
-    }));
+    return { name, phone, address, city, state, pincode };
+  }
+
+  // 🔥 ONLINE PAYMENT
+  function startPayment() {
+
+    const user = getFormData();
+    if (!user) return;
+
+    localStorage.setItem("user_details", JSON.stringify(user));
 
     let amount = Number(localStorage.getItem("order_total")) * 100;
 
@@ -80,8 +90,8 @@
           window.location.href = "success.html";
       },
       "prefill": {
-          "name": name,
-          "contact": phone
+          "name": user.name,
+          "contact": user.phone
       },
       "theme": {
           "color": "#2563eb"
@@ -91,9 +101,29 @@
     var pay = new Razorpay(options);
     pay.open();
   }
+
+  // 🚚 COD FUNCTION
+  function placeCOD() {
+
+    const user = getFormData();
+    if (!user) return;
+
+    const orderData = {
+      ...user,
+      paymentMethod: "COD",
+      amount: localStorage.getItem("order_total"),
+      qty: localStorage.getItem("order_qty")
+    };
+
+    console.log("COD Order:", orderData);
+
+    // 👉 future backend API yaha lagega
+
+    alert("Order placed successfully with Cash on Delivery!");
+    window.location.href = "success.html";
+  }
+
 </script>
 
 </body>
 </html>
-
-
