@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Successful</title>
+  <title>Order Status</title>
+
   <style>
     body {
       font-family: Arial;
@@ -11,6 +12,7 @@
       padding: 40px;
       background: #f0fdf4;
     }
+
     .box {
       max-width: 400px;
       margin: auto;
@@ -19,18 +21,44 @@
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
+
     h2 {
       color: #16a34a;
     }
+
+    .sub {
+      margin-top: 10px;
+      color: #555;
+    }
   </style>
 </head>
+
 <body>
 
 <div class="box">
-  <h2>Payment Successful ✔</h2>
-  <p>Your order has been placed successfully!</p>
-  <p>We will contact you soon.</p>
+  <h2 id="title">Loading...</h2>
+  <p id="desc"></p>
+  <p class="sub">We will contact you soon.</p>
 </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type");
+
+  const title = document.getElementById("title");
+  const desc = document.getElementById("desc");
+
+  if (type === "paid") {
+    title.innerText = "✅ Payment Successful";
+    desc.innerText = "Your order has been confirmed!";
+  } else if (type === "cod") {
+    title.innerText = "📦 Order Placed Successfully";
+    desc.innerText = "Pay when your product arrives.";
+  } else {
+    title.innerText = "🎉 Order Successful";
+    desc.innerText = "Thank you for your purchase!";
+  }
+</script>
 
 </body>
 </html>
