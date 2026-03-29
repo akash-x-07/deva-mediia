@@ -37,11 +37,12 @@
       <input id="pincode" type="text" placeholder="Pincode">
     </div>
 
-    <!-- ONLINE PAYMENT -->
     <button class="btn-primary" onclick="startPayment()">Pay Online</button>
 
-    <!-- COD BUTTON -->
-    <button class="btn-cod" onclick="placeCOD()">Cash on Delivery (COD)</button>
+    <button class="btn-cod" onclick="placeCOD()">
+      🧾 Cash on Delivery
+      <span class="cod-sub">Pay when product arrives</span>
+    </button>
 
   </div>
 </div>
@@ -50,78 +51,85 @@
 
 <script>
 
-  document.getElementById("qty").innerText = localStorage.getItem("order_qty");
-  document.getElementById("total").innerText = localStorage.getItem("order_total");
+document.getElementById("qty").innerText = localStorage.getItem("order_qty");
+document.getElementById("total").innerText = localStorage.getItem("order_total");
 
-  function getFormData() {
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const address = document.getElementById("address").value;
-    const city = document.getElementById("city").value;
-    const state = document.getElementById("state").value;
-    const pincode = document.getElementById("pincode").value;
+function getFormData() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+  const city = document.getElementById("city").value;
+  const state = document.getElementById("state").value;
+  const pincode = document.getElementById("pincode").value;
 
-    if (!name || !phone || !address || !pincode) {
-      alert("Please fill all required fields!");
-      return null;
+  if (!name || !phone || !address || !pincode) {
+    alert("Please fill all required fields!");
+    return null;
+  }
+
+  return { name, phone, address, city, state, pincode };
+}
+
+// 🔥 Razorpay
+function startPayment() {
+  const user = getFormData();
+  if (!user) return;
+
+  let amount = Number(localStorage.getItem("order_total")) * 100;
+
+  var options = {
+    key: "rzp_live_RQued3FP5TVGu5",
+    amount: amount,
+    currency: "INR",
+    name: "Teen To Millionaire",
+    description: "Book Purchase",
+    handler: function () {
+      alert("Payment Successful!");
+      window.location.href = "success.html";
+    },
+    prefill: {
+      name: user.name,
+      contact: user.phone
     }
+  };
 
-    return { name, phone, address, city, state, pincode };
-  }
+  var pay = new Razorpay(options);
+  pay.open();
+}
 
-  // 🔥 ONLINE PAYMENT
-  function startPayment() {
+// 🚚 COD + WhatsApp
+function placeCOD() {
 
-    const user = getFormData();
-    if (!user) return;
+  const user = getFormData();
+  if (!user) return;
 
-    localStorage.setItem("user_details", JSON.stringify(user));
+  const btn = document.querySelector(".btn-cod");
+  btn.classList.add("loading");
+  btn.innerHTML = "⏳ Placing Order...";
 
-    let amount = Number(localStorage.getItem("order_total")) * 100;
+  const orderId = "ORD" + Date.now();
+  const amount = localStorage.getItem("order_total");
+  const qty = localStorage.getItem("order_qty");
 
-    var options = {
-      "key": "rzp_live_RQued3FP5TVGu5",
-      "amount": amount,
-      "currency": "INR",
-      "name": "Teen To Millionaire",
-      "description": "Book Purchase",
-      "handler": function (response){
-          alert("Payment Successful!");
-          window.location.href = "success.html";
-      },
-      "prefill": {
-          "name": user.name,
-          "contact": user.phone
-      },
-      "theme": {
-          "color": "#2563eb"
-      }
-    };
+  let message = `🛒 *New COD Order* %0A
+📦 Product: Teen To Millionaire %0A
+🔢 Quantity: ${qty} %0A
+💰 Amount: ₹${amount} %0A
+%0A
+👤 Name: ${user.name} %0A
+📞 Phone: ${user.phone} %0A
+📍 Address: ${user.address}, ${user.city}, ${user.state} - ${user.pincode} %0A
+%0A
+🆔 Order ID: ${orderId}`;
 
-    var pay = new Razorpay(options);
-    pay.open();
-  }
+  let whatsappNumber = "918726326511"; // 👈 change this
 
-  // 🚚 COD FUNCTION
-  function placeCOD() {
-
-    const user = getFormData();
-    if (!user) return;
-
-    const orderData = {
-      ...user,
-      paymentMethod: "COD",
-      amount: localStorage.getItem("order_total"),
-      qty: localStorage.getItem("order_qty")
-    };
-
-    console.log("COD Order:", orderData);
-
-    // 👉 future backend API yaha lagega
-
-    alert("Order placed successfully with Cash on Delivery!");
+  setTimeout(() => {
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    alert("🎉 Order Confirmed!");
     window.location.href = "success.html";
-  }
+  }, 1200);
+}
 
 </script>
 
